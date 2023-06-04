@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import Experience from "../Experience";
 import GSAP from "gsap";
+import { RectAreaLightHelper } from "three/examples/jsm/helpers/RectAreaLightHelper";
 
 export default class Room {
   constructor() {
@@ -24,8 +25,6 @@ export default class Room {
 
   setModel() {
     this.actualRoom.children.forEach((child) => {
-      // child.castShadow = true;
-      // child.recieveShadow = true;
       if (child.isMesh) {
         child.castShadow = true;
         child.receiveShadow = true;
@@ -37,8 +36,6 @@ export default class Room {
             groupChild.castShadow = true;
             groupChild.receiveShadow = true;
           }
-          // groupChild.castShadow = true;
-          // groupChild.recieveShadow = true;
         });
       }
 
@@ -58,6 +55,23 @@ export default class Room {
       }
     });
 
+    const width = 1.2;
+    const height = 1.2;
+    const intensity = 1;
+    const rectLight = new THREE.RectAreaLight(
+      0xffffff,
+      intensity,
+      width,
+      height
+    );
+    rectLight.position.set(9, 7, -1.75);
+    rectLight.rotation.x = -Math.PI / 2;
+    rectLight.rotation.z = Math.PI / 4;
+    this.actualRoom.add(rectLight);
+
+    // const rectLightHelper = new RectAreaLightHelper(rectLight);
+    // rectLight.add(rectLightHelper);
+
     this.scene.add(this.actualRoom);
     this.actualRoom.scale.set(0.15, 0.15, 0.15);
     // this.actualRoom.rotation.y = -Math.PI / 4;
@@ -74,7 +88,7 @@ export default class Room {
       // console.log(e);
       this.rotation =
         ((e.clientX - window.innerWidth / 2) * 2) / window.innerWidth;
-      this.lerp.target = this.rotation * 0.075;
+      this.lerp.target = this.rotation * 0.08;
     });
   }
 

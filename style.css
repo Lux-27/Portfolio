@@ -9,13 +9,44 @@
 html,
 body {
   font-family: "Montserrat", sans-serif;
-  color: var(--text-black);
+  overflow-x: hidden;
+}
+
+h1,
+section,
+p,
+span,
+svg {
+  transition: background-color 0.5s, color 0.5s;
 }
 
 :root {
-  --text-black: rgb(22, 22, 22);
-  --primary-color: #faf4e5;
-  --primary-pink: #e5a1aa;
+  /*Light Theme Variabless*/
+  --color-text-light: #333332;
+  --color-background-light: #f4f4e5;
+  --color-pink-light: #e5a1aa;
+  --color-green-light: #7ad0ac;
+  --color-blue-light: #8395cd;
+
+  /*Dark Theme Variables*/
+  --color-text-dark: #faf4e5;
+  --color-background-dark: #8395cd;
+}
+
+.light-theme {
+  --color-text: var(--color-text-light);
+  --color-background: var(--color-background-light);
+  --color-pink: var(--color-pink-light);
+  --color-green: var(--color-green-light);
+  --color-blue: var(--color-blue-light);
+}
+
+.dark-theme {
+  --color-text: var(--color-text-dark);
+  --color-background: var(--color-background-dark);
+  --color-pink: var(--color-text-dark);
+  --color-green: var(--color-text-dark);
+  --color-blue: var(--color-text-dark);
 }
 
 /* Experience ______________________________________________*/
@@ -23,7 +54,7 @@ body {
 .experience {
   position: fixed;
   width: 100vw;
-  height: 100vw;
+  height: 100vh;
 }
 
 .experience-canvas {
@@ -43,6 +74,62 @@ body {
   position: relative;
 }
 
+/*Dark Mode__________________________________________________*/
+.toggle-bar {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  top: 48px;
+  right: 48px;
+  z-index: 99999999999999999;
+}
+
+.sun-wrapper,
+.moon-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-text);
+}
+
+.toggle-button {
+  cursor: pointer;
+  position: relative;
+  width: 56px;
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-pink);
+  border-radius: 999px;
+  margin: 0px 16px;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.toggle-circle {
+  position: absolute;
+  left: 6px;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-background);
+  transition: all 0.2s ease-in-out;
+}
+
+.toggle-button:hover .toggle-circle {
+  transform: scale(0.85);
+}
+
+.slide {
+  left: 28px;
+}
+
 /*Section____________________________________________________*/
 .section-margin {
   height: 3000px;
@@ -53,7 +140,8 @@ body {
   width: 50%;
   padding: 1000px 4%;
   margin: 0;
-  background-color: var(--primary-color);
+  background-color: var(--color-background);
+  overflow: hidden;
 }
 
 .left {
@@ -67,7 +155,7 @@ body {
 .section-intro-wrapper {
   position: relative;
   padding: 20% 5%;
-  border-bottom: 2px solid var(--primary-color);
+  border-bottom: 2px solid var(--color-pink);
   padding-bottom: 400px;
 }
 
@@ -81,18 +169,20 @@ body {
   font-weight: 700;
   line-height: 1.8;
   margin-top: 64px;
+  color: var(--color-text);
 }
 
 .section-text {
   line-height: 2;
   margin-top: 18px;
   font-size: 16px;
+  color: var(--color-text);
 }
 
 /*Fancyyy____________________________________________________*/
 .section-title {
   position: relative;
-  color: var(--primary-color);
+  color: var(--color-background);
 }
 
 .section-title-text {
@@ -103,6 +193,42 @@ body {
   transform: skewY(25deg);
   z-index: 5;
   text-transform: uppercase;
+  color: var(--color-pink);
+}
+
+.styleOne,
+.styleTwo,
+.styleThree {
+  position: absolute;
+  display: block;
+  width: 100%;
+  max-width: 278px;
+  height: 60px;
+  border: 1px solid var(--color-pink);
+  transform-origin: left;
+  transform: skewY(-25deg);
+}
+
+.styleOne {
+  top: 0px;
+}
+
+.styleTwo {
+  top: 80px;
+}
+
+.styleThree {
+  top: 80px;
+  transform: skewY(25deg);
+  background-color: var(--color-pink);
+}
+
+.section-number {
+  position: absolute;
+  bottom: 15px;
+  right: 0px;
+  color: var(--color-pink);
+  font-size: 24px;
 }
 
 /*Hero_______________________________________________________*/
@@ -114,7 +240,7 @@ body {
 .hero-wrapper {
   position: relative;
   height: 100%;
-  width: calc(100%-160px);
+  width: 100%;
   margin: 0 auto;
   max-width: 1100px;
 }
@@ -123,23 +249,61 @@ body {
   position: absolute;
   bottom: 168px;
   left: 0;
+  color: var(--color-text);
 }
 
 .hero-second {
   position: absolute;
   top: calc(50% - 150px);
   right: 0px;
+  color: var(--color-text);
 }
 
 .hero-main-title {
   font-size: 64px;
+  color: var(--color-text);
 }
 
 .hero-main-description {
   font-size: 18px;
+  color: var(--color-text);
 }
 
 .hero-second-subheading {
   font-size: 32px;
   text-transform: uppercase;
+  color: var(--color-text);
+}
+
+/*Color Overwrite*/
+.blue-text {
+  color: var(--color-blue);
+}
+
+.blue-border {
+  border-color: var(--color-blue);
+}
+
+.blue-background {
+  background-color: var(--color-blue);
+}
+
+.green-text {
+  color: var(--color-green);
+}
+
+.green-border {
+  border-color: var(--color-green);
+}
+
+.green-background {
+  background-color: var(--color-green);
+}
+
+/*Media Query*/
+
+@media (max-width: 960px) {
+  .section {
+    width: 100%;
+  }
 }

@@ -1,15 +1,21 @@
 import * as THREE from "three";
 import GSAP from "gsap";
 import Experience from "../Experience";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default class Controls {
   constructor() {
     this.experience = new Experience();
     this.scene = this.experience.scene;
+    this.sizes = this.experience.sizes;
     this.resources = this.experience.resources;
     this.time = this.experience.time;
     this.camera = this.experience.camera;
+    this.room = this.experience.world.room.actualRoom;
 
+    GSAP.registerPlugin(ScrollTrigger);
+
+    this.setPath();
     // this.progress = 0;
     // this.dummyVector = new THREE.Vector3(0, 0, 0);
 
@@ -24,36 +30,50 @@ export default class Controls {
     // this.onWheel();
   }
 
-  // setPath() {
-  //   // this.curve = new THREE.EllipseCurve(
-  //   //   [
-  //   //     0,
-  //   //     0,
-  //   //     10,
-  //   //     10,
-  //   //     0,
-  //   //     2 * Math.PI,
-  //   //     false,
-  //   //     0,
-  //   //   ],
-  //   this.curve = new THREE.CatmullRomCurve3(
-  //     [
-  //       new THREE.Vector3(-5, 0, 0),
-  //       new THREE.Vector3(0, 0, -5),
-  //       new THREE.Vector3(5, 0, 0),
-  //       new THREE.Vector3(0, 0, 5),
-  //     ],
-  //     true
-  //   );
+  setPath() {
+    this.timeline = new GSAP.timeline();
+    this.timeline.to(this.room.position, {
+      x: () => {
+        return this.sizes.width * 0.00092;
+      },
+      ScrollTrigger: {
+        trigger: ".first-move",
+        markers: true,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 0.5,
+        invalidateOnRefresh: true,
+      },
+    });
+    //   // this.curve = new THREE.EllipseCurve(
+    //   //   [
+    //   //     0,
+    //   //     0,
+    //   //     10,
+    //   //     10,
+    //   //     0,
+    //   //     2 * Math.PI,
+    //   //     false,
+    //   //     0,
+    //   //   ],
+    //   this.curve = new THREE.CatmullRomCurve3(
+    //     [
+    //       new THREE.Vector3(-5, 0, 0),
+    //       new THREE.Vector3(0, 0, -5),
+    //       new THREE.Vector3(5, 0, 0),
+    //       new THREE.Vector3(0, 0, 5),
+    //     ],
+    //     true
+    //   );
 
-  //   const points = this.curve.getPoints(50);
-  //   const geometry = new THREE.BufferGeometry().setFromPoints(points);
+    //   const points = this.curve.getPoints(50);
+    //   const geometry = new THREE.BufferGeometry().setFromPoints(points);
 
-  //   const material = new THREE.LineBasicMaterial({ color: 0xff0000 });
+    //   const material = new THREE.LineBasicMaterial({ color: 0xff0000 });
 
-  //   const curveObject = new THREE.Line(geometry, material);
-  //   this.scene.add(curveObject);
-  // }
+    //   const curveObject = new THREE.Line(geometry, material);
+    //   this.scene.add(curveObject);
+  }
 
   // onWheel() {
   //   window.addEventListener("wheel", (e) => {
