@@ -40,18 +40,36 @@ export default class Room {
       }
 
       if (child.name === "Aquarium") {
-        child.material = new THREE.MeshPhysicalMaterial();
-        child.material.roughness = 0;
-        child.material.color.set(0x549dd2);
-        child.material.ior = 3;
-        child.material.transmission = 1;
-        child.material.opacity = 1;
+        child.children[0].material = new THREE.MeshPhysicalMaterial();
+        child.children[0].material.roughness = 1.5;
+        child.children[0].material.color.set(0x549dd2);
+        child.children[0].material.ior = 1;
+        child.children[0].material.transmission = 1;
+        child.children[0].material.opacity = 1;
       }
 
       if (child.name === "Computer") {
         child.children[1].material = new THREE.MeshBasicMaterial({
           map: this.resources.items.screen,
         });
+      }
+
+      if (child.name === "Mini_Floor") {
+        child.position.x = 0;
+        child.position.z = 8;
+      }
+
+      if (
+        child.name === "Mailbox" ||
+        child.name === "Lamp" ||
+        child.name === "FloorFirst" ||
+        child.name === "FloorSecond" ||
+        child.name === "FloorThird" ||
+        child.name === "Dirt" ||
+        child.name === "Flower1" ||
+        child.name === "Flower2"
+      ) {
+        child.scale.set(0, 0, 0);
       }
     });
 
