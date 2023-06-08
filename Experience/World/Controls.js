@@ -21,10 +21,19 @@ export default class Controls {
     this.circleFirst = this.experience.world.floor.circleFirst;
     this.circleSecond = this.experience.world.floor.circleSecond;
     this.circleThird = this.experience.world.floor.circleThird;
+
     GSAP.registerPlugin(ScrollTrigger);
 
+    document.querySelector(".page").style.overflow = "visible";
+
+    if (
+      !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      )
+    ) {
+      this.setSmoothScroll();
+    }
     this.setASS();
-    this.setScrollTrigger();
   }
 
   setupASScroll() {
@@ -302,7 +311,6 @@ export default class Controls {
           start: "top top",
           end: "bottom bottom",
           scrub: 0.6,
-          invalidateOnRefresh: true,
         },
       }).to(this.circleFirst.scale, {
         x: 3,
@@ -317,7 +325,6 @@ export default class Controls {
           start: "top top",
           end: "bottom bottom",
           scrub: 0.6,
-          invalidateOnRefresh: true,
         },
       })
         .to(
@@ -344,7 +351,6 @@ export default class Controls {
           start: "top top",
           end: "bottom bottom",
           scrub: 0.6,
-          invalidateOnRefresh: true,
         },
       })
         .to(
@@ -369,10 +375,6 @@ export default class Controls {
         scrollTrigger: {
           trigger: ".third-move",
           start: "center center",
-          // end: "bottom bottom",
-          ease: "back.out(2)",
-          // scrub: 0.3,
-          // invalidateOnRefresh: true,
         },
       });
 
