@@ -31,9 +31,9 @@ export default class Controls {
         navigator.userAgent
       )
     ) {
-      this.setSmoothScroll();
+      this.setASS();
     }
-    this.setASS();
+    this.setScrollTrigger();
   }
 
   setupASScroll() {
