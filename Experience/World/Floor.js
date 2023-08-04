@@ -1,6 +1,5 @@
 import * as THREE from "three";
 import Experience from "../Experience";
-import GSAP from "gsap";
 
 export default class Floor {
   constructor() {
@@ -29,13 +28,16 @@ export default class Floor {
     const material = new THREE.MeshStandardMaterial({ color: 0xe5a1aa });
     const material2 = new THREE.MeshStandardMaterial({ color: 0x8395cd });
     const material3 = new THREE.MeshStandardMaterial({ color: 0x7ad0ac });
+
     this.circleFirst = new THREE.Mesh(geometry, material);
     this.circleSecond = new THREE.Mesh(geometry, material2);
     this.circleThird = new THREE.Mesh(geometry, material3);
 
     this.circleFirst.position.y = -0.29;
+
     this.circleSecond.position.y = -0.28;
     this.circleSecond.position.x = 1;
+
     this.circleThird.position.y = -0.27;
 
     this.circleFirst.scale.set(0, 0, 0);

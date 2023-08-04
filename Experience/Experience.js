@@ -8,10 +8,10 @@ import assets from "./Utils/assets";
 import Theme from "./Theme";
 import Camera from "./Camera";
 import Renderer from "./Renderer";
+import Preloader from "./Preloader";
 
 import World from "./World/World";
 import Controls from "./World/Controls";
-import Preloader from "./Preloader";
 
 export default class Experience {
   static instance;
@@ -54,5 +54,8 @@ export default class Experience {
     this.world.update();
     this.renderer.update();
     this.preloader.update();
+    if (this.controls) {
+      this.controls.update();
+    }
   }
 }

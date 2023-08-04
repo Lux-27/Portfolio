@@ -31,7 +31,7 @@ export default class Controls {
         navigator.userAgent
       )
     ) {
-      this.setASS();
+      this.setSmoothScroll();
     }
     this.setScrollTrigger();
   }
@@ -81,7 +81,7 @@ export default class Controls {
     return asscroll;
   }
 
-  setASS() {
+  setSmoothScroll() {
     this.asscroll = this.setupASScroll();
   }
 
@@ -90,12 +90,13 @@ export default class Controls {
 
     //Desktop
     mm.add("(min-width: 969px)", () => {
-      console.log("fired Desktop");
+      //console.log("fired Desktop");
 
       this.rectLight.width = 1.2;
       this.rectLight.height = 1.2;
       this.room.scale.set(0.15, 0.15, 0.15);
-
+      this.camera.orthographicCamera.position.set(1, 4, 10);
+      this.room.position.set(0, 0, 0);
       //First-section
       this.firstMoveTimeline = new GSAP.timeline({
         scrollTrigger: {
@@ -106,11 +107,20 @@ export default class Controls {
           invalidateOnRefresh: true,
         },
       });
-      this.firstMoveTimeline.to(this.room.position, {
-        x: () => {
-          return this.sizes.width * 0.0018;
-        },
-      });
+      // this.firstMoveTimeline.to(this.room.position, {
+      //   x: () => {
+      //     return this.sizes.width * 0.0018;
+      //   },
+      // });
+      this.firstMoveTimeline.fromTo(
+        this.room.position,
+        { x: 0, y: 0, z: 0 },
+        {
+          x: () => {
+            return this.sizes.width * 0.0018;
+          },
+        }
+      );
 
       //Second-section
       this.secondMoveTimeline = new GSAP.timeline({
@@ -169,7 +179,7 @@ export default class Controls {
 
     //Mobile
     mm.add("(max-width: 968px)", () => {
-      console.log("fired Mobile");
+      //console.log("fired Mobile");
 
       //Resets
       this.room.scale.set(0.1, 0.1, 0.1);
@@ -184,7 +194,7 @@ export default class Controls {
           start: "top top",
           end: "bottom bottom",
           scrub: 0.6,
-          invalidateOnRefresh: true,
+          //invalidateOnRefresh: true,
         },
       }).to(this.room.scale, {
         x: 0.14,
@@ -236,9 +246,8 @@ export default class Controls {
           scrub: 0.6,
           invalidateOnRefresh: true,
         },
-      }).to(this.camera.orthographicCamera.position, {
-        y: 0.5,
-        x: -0.5,
+      }).to(this.room.position, {
+        z: -4.5,
       });
     });
 
@@ -305,7 +314,7 @@ export default class Controls {
       //Circle Animations
 
       //First-Circle
-      this.firstMoveTimeline = new GSAP.timeline({
+      this.firstCircle = new GSAP.timeline({
         scrollTrigger: {
           trigger: ".first-move",
           start: "top top",
@@ -319,7 +328,7 @@ export default class Controls {
       });
 
       //Second-section
-      this.secondMoveTimeline = new GSAP.timeline({
+      this.secondCircle = new GSAP.timeline({
         scrollTrigger: {
           trigger: ".second-move",
           start: "top top",
@@ -345,7 +354,7 @@ export default class Controls {
         );
 
       //Third-section
-      this.thirdMoveTimeline = new GSAP.timeline({
+      this.thirdCircle = new GSAP.timeline({
         scrollTrigger: {
           trigger: ".third-move",
           start: "top top",

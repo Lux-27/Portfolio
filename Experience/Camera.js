@@ -13,6 +13,7 @@ export default class Camera {
     this.createOrthographicCamera();
     this.setOrbitControls();
   }
+
   createPerspectiveCamera() {
     this.perspectiveCamera = new THREE.PerspectiveCamera(
       35,
@@ -57,7 +58,7 @@ export default class Camera {
   setOrbitControls() {
     this.controls = new OrbitControls(this.perspectiveCamera, this.canvas);
     this.controls.enableDamping = true;
-    this.controls.enableZoom = true;
+    this.controls.enableZoom = false;
   }
 
   resize() {
@@ -69,7 +70,7 @@ export default class Camera {
     this.orthographicCamera.left =
       (-this.sizes.ascept * this.sizes.frustrum) / 2;
     this.orthographicCamera.right =
-      (this.sizes.ascept * this.sizes * this.frustrum) / 2;
+      (this.sizes.ascept * this.sizes.frustrum) / 2;
     this.orthographicCamera.top = this.sizes.frustrum / 2;
     this.orthographicCamera.bottom = -this.sizes.frustrum;
     this.orthographicCamera.updateProjectionMatrix();
